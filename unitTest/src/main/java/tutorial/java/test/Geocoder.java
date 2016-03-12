@@ -15,14 +15,28 @@ import tutorial.java.rest.RestObject;
 public class Geocoder {
 
 	// https://maps.googleapis.com/maps/api/geocode/json?address=Brussels
+	private String base;
+	private String apiService;
+	private String type;
+	private String parameter;
+	
+	private HttpURLConnection conn;
 
+	public Geocoder() {
+		base = "http://maps.googleapis.com/maps/";
+		apiService = "api/geocode/";
+		type = "json";
+		parameter = "address";
+	}
+	
 	public String call(String address) {
 	    String line;
 		try {
 
 			URL url = new URL(
-					"http://maps.googleapis.com/maps/api/geocode/json?address=" + address);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					base + apiService + type + "?"+ parameter + "=" + address);
+			
+			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
 
@@ -53,14 +67,58 @@ public class Geocoder {
 
 		} catch (MalformedURLException e) {
 
-			e.printStackTrace();
+			handlerException();
 
 		} catch (IOException e) {
 
-			e.printStackTrace();
+			handlerException();
 
 		}
 		
 		return null;
+	}
+	
+	public void handlerException() {
+		System.out.println("there is some trouble here");
+	}
+	
+	public HttpURLConnection getConn() {
+		return conn;
+	}
+
+	public void setConn(HttpURLConnection conn) {
+		this.conn = conn;
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
+	}
+
+	public String getApiService() {
+		return apiService;
+	}
+
+	public void setApiService(String apiService) {
+		this.apiService = apiService;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
 	}
 }
