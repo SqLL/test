@@ -32,9 +32,6 @@ public class GeocoderTest {
 	
 	Geocoder geo;
 	
-	@InjectMocks
-	StringBuilder simpleString;
-	
 	@Before
 	public void init() throws MalformedURLException, IOException {
 		geo = new Geocoder();
